@@ -12,8 +12,8 @@ public class NumberSequence {
         this.numbers = numbers;
     }
 
-    public NumberSequence(int countOfRandomNumbers, int min, int max) {
-        this.numbers = getRandomNumbers(countOfRandomNumbers, min, max);
+    public NumberSequence(int countOfRandomNumbers, int minValue, int maxValue) {
+        this.numbers = getRandomNumbers(countOfRandomNumbers, minValue, maxValue);
     }
 
     public List<Integer> getNumbers() {
@@ -40,11 +40,11 @@ public class NumberSequence {
         return result;
     }
 
-    private List<Integer> getRandomNumbers(int countOfRandomNumbers, int min, int max) {
+    private List<Integer> getRandomNumbers(int countOfRandomNumbers, int minValue, int maxValue) {
         Random random = new Random();
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < countOfRandomNumbers; i++) {
-            result.add(random.nextInt(min, max + 1));
+            result.add(random.nextInt(minValue, maxValue + 1));
         }
         return result;
     }
