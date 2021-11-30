@@ -26,20 +26,20 @@ class RecipeTest {
     }
 
     @Test
-    void testAddIngredientsNone() {
+    void testAddNoIngredient() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> recipe.addIngredients());
         assertEquals("At least one ingredient must be added.", e.getMessage());
     }
 
     @Test
-    void testAddIngredientsSingle() {
+    void testAddOneIngredient() {
         recipe.addIngredients("2 eggs");
         assertEquals(1, recipe.getIngredients().size());
         assertEquals("2 eggs", recipe.getIngredients().get(0));
     }
 
     @Test
-    void testAddIngredientsMultiple() {
+    void testAddMultipleIngredients() {
         recipe.addIngredients("2 eggs", "Salt", "Pepper");
         assertEquals(3, recipe.getIngredients().size());
         assertEquals("2 eggs", recipe.getIngredients().get(0));
