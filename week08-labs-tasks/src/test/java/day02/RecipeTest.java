@@ -18,7 +18,7 @@ class RecipeTest {
     }
 
     @Test
-    void testCreateWithOneParam() {
+    void testCreateByTitle() {
         Recipe recipe1 = new Recipe("Scrambled Eggs");
         assertEquals("Scrambled Eggs", recipe1.getTitle());
         assertEquals("N/A", recipe1.getDescription());
@@ -26,7 +26,13 @@ class RecipeTest {
     }
 
     @Test
-    void testAddIngredients() {
+    void testAddIngredientsNone() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> recipe.addIngredients());
+        assertEquals("At least one ingredient must be added.", e.getMessage());
+    }
+
+    @Test
+    void testAddIngredientsSingle() {
         recipe.addIngredients("2 eggs");
         assertEquals(1, recipe.getIngredients().size());
         assertEquals("2 eggs", recipe.getIngredients().get(0));
@@ -39,11 +45,5 @@ class RecipeTest {
         assertEquals("2 eggs", recipe.getIngredients().get(0));
         assertEquals("Salt", recipe.getIngredients().get(1));
         assertEquals("Pepper", recipe.getIngredients().get(2));
-    }
-
-    @Test
-    void testAddIngredientsWithNoParams() {
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> recipe.addIngredients());
-        assertEquals("At least one ingredient must be added.", e.getMessage());
     }
 }
