@@ -10,11 +10,11 @@ class FileReaderTest {
 
     @Test
     void testFindSmallestTemperatureSpread() {
-        assertEquals(14, new FileReader().findSmallestTemperatureSpread(Path.of("src/test/resources/weather.dat")));
+        assertEquals(14, FileReader.findSmallestTemperatureSpread(Path.of("src/test/resources/weather.dat")));
     }
 
     @Test
     void testFindSmallestGoalDifference() {
-        assertEquals("Arsenal", new FileReader().findSmallestGoalDifference(Path.of("src/test/resources/football.dat")));
+        assertEquals("Arsenal", FileReader.findSmallestGoalDifference(Path.of("src/test/resources/football.dat")));
     }
 }

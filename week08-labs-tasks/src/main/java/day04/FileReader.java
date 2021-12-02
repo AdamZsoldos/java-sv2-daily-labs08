@@ -8,7 +8,11 @@ import java.util.List;
 
 public class FileReader {
 
-    public int findSmallestTemperatureSpread(Path path) {
+    private FileReader() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static int findSmallestTemperatureSpread(Path path) {
         List<String> lines = readFile(path);
         int minSpread = Integer.MAX_VALUE;
         int minDay = -1;
@@ -25,7 +29,7 @@ public class FileReader {
         return minDay;
     }
 
-    public String findSmallestGoalDifference(Path path) {
+    public static String findSmallestGoalDifference(Path path) {
         List<String> lines = readFile(path);
         int minDifference = Integer.MAX_VALUE;
         String name = "";
@@ -42,7 +46,7 @@ public class FileReader {
         return name;
     }
 
-    private List<String> readFile(Path path) {
+    private static List<String> readFile(Path path) {
         try {
             return Files.readAllLines(path);
         } catch (IOException e) {
@@ -50,7 +54,7 @@ public class FileReader {
         }
     }
 
-    private List<String> getTokens(String source) {
+    private static List<String> getTokens(String source) {
         List<String> tokens = new ArrayList<>();
         StringBuilder currentToken = null;
         for (int i = 0; i <= source.length(); i++) {
@@ -67,7 +71,7 @@ public class FileReader {
         return tokens;
     }
 
-    private boolean areTokensNumeric(List<String> tokens, int... indices) {
+    private static boolean areTokensNumeric(List<String> tokens, int... indices) {
         try {
             for (int index : indices) {
                 if (index >= tokens.size()) return false;
