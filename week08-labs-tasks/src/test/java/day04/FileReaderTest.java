@@ -14,7 +14,7 @@ class FileReaderTest {
     }
 
     @Test
-    void testFindSmallestGoalDifference() {
-        assertEquals("Arsenal", FileReader.findSmallestGoalDifference(Path.of("src/test/resources/football.dat")));
+    void testFindSmallestTeamDifference() {
+        assertEquals("Aston_Villa", FileReader.findSmallestTeamDifference(Path.of("src/test/resources/football.dat")));
     }
 }

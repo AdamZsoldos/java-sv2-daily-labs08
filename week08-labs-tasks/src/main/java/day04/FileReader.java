@@ -29,21 +29,21 @@ public class FileReader {
         return minDay;
     }
 
-    public static String findSmallestGoalDifference(Path path) {
+    public static String findSmallestTeamDifference(Path path) {
         List<String> lines = readFile(path);
         int minDifference = Integer.MAX_VALUE;
-        String name = "";
+        String teamName = "";
         for (String line : lines) {
             List<String> tokens = getTokens(line);
             if (areTokensNumeric(tokens, 6, 8)) {
-                int difference = Integer.parseInt(tokens.get(8)) - Integer.parseInt(tokens.get(6));
+                int difference = Math.abs(Integer.parseInt(tokens.get(8)) - Integer.parseInt(tokens.get(6)));
                 if (difference < minDifference) {
                     minDifference = difference;
-                    name = tokens.get(1);
+                    teamName = tokens.get(1);
                 }
             }
         }
-        return name;
+        return teamName;
     }
 
     private static List<String> readFile(Path path) {
