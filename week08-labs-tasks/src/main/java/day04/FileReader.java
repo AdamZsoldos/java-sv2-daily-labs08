@@ -9,20 +9,20 @@ import java.util.List;
 public class FileReader {
 
     public int findSmallestTemperatureSpread(Path path) {
-        return Integer.parseInt(findSmallestDifference(path, 0, 1, 2));
+        return Integer.parseInt(getSmallestDifference(path, 0, 1, 2));
     }
 
     public String findSmallestTeamDifference(Path path) {
-        return findSmallestDifference(path, 1, 6, 8);
+        return getSmallestDifference(path, 1, 6, 8);
     }
 
-    private String findSmallestDifference(Path path, int resultTokenIndex, int tokenIndex1, int tokenIndex2) {
-        List<String> lines = readFile(path);
+    private String getSmallestDifference(Path path, int resultTokenIndex, int tokenIndex1, int tokenIndex2) {
+        List<String> lines = readLines(path);
         int minDifference = Integer.MAX_VALUE;
         String result = "";
         for (String line : lines) {
             List<String> tokens = getTokens(line);
-            if (areTokensNumeric(tokens, tokenIndex1, tokenIndex2)) {
+            if (hasNumericTokensAt(tokens, tokenIndex1, tokenIndex2)) {
                 int difference = Math.abs(Integer.parseInt(tokens.get(tokenIndex1)) - Integer.parseInt(tokens.get(tokenIndex2)));
                 if (difference < minDifference) {
                     minDifference = difference;
@@ -33,7 +33,7 @@ public class FileReader {
         return result;
     }
 
-    private List<String> readFile(Path path) {
+    private List<String> readLines(Path path) {
         try {
             return Files.readAllLines(path);
         } catch (IOException e) {
@@ -45,7 +45,7 @@ public class FileReader {
         List<String> tokens = new ArrayList<>();
         StringBuilder currentToken = null;
         for (int i = 0; i <= source.length(); i++) {
-            if (isTokenCharacter(source, i)) {
+            if (hasTokenCharacterAt(source, i)) {
                 if (currentToken == null) { currentToken = new StringBuilder(); }
                 currentToken.append(source.charAt(i));
             } else if (currentToken != null) {
@@ -56,14 +56,14 @@ public class FileReader {
         return tokens;
     }
 
-    private boolean isTokenCharacter(String source, int index) {
+    private boolean hasTokenCharacterAt(String source, int index) {
         if (index >= source.length()) { return false; }
         if (Character.isWhitespace(source.charAt(index))) { return false; }
         if (source.charAt(index) == '*') { return false; }
         return true;
     }
 
-    private boolean areTokensNumeric(List<String> tokens, int... indices) {
+    private boolean hasNumericTokensAt(List<String> tokens, int... indices) {
         try {
             for (int index : indices) {
                 if (index >= tokens.size()) { return false; }
