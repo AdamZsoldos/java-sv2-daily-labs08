@@ -58,7 +58,7 @@ public class FileReader {
         List<String> tokens = new ArrayList<>();
         StringBuilder currentToken = null;
         for (int i = 0; i <= source.length(); i++) {
-            if (i < source.length() && !Character.isWhitespace(source.charAt(i)) && source.charAt(i) != '*') {
+            if (isTokenCharacter(source, i)) {
                 if (currentToken == null) currentToken = new StringBuilder();
                 currentToken.append(source.charAt(i));
             } else if (currentToken != null) {
@@ -67,6 +67,13 @@ public class FileReader {
             }
         }
         return tokens;
+    }
+
+    private static boolean isTokenCharacter(String source, int index) {
+        if (index >= source.length()) return false;
+        if (Character.isWhitespace(source.charAt(index))) return false;
+        if (source.charAt(index) == '*') return false;
+        return true;
     }
 
     private static boolean areTokensNumeric(List<String> tokens, int... indices) {
