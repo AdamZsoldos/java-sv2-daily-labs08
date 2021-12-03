@@ -13,37 +13,28 @@ public class FileReader {
     }
 
     public static int findSmallestTemperatureSpread(Path path) {
-        List<String> lines = readFile(path);
-        int minSpread = Integer.MAX_VALUE;
-        int minDay = -1;
-        for (String line : lines) {
-            List<String> tokens = getTokens(line);
-            if (areTokensNumeric(tokens, 0, 1, 2)) {
-                int spread = Integer.parseInt(tokens.get(1)) - Integer.parseInt(tokens.get(2));
-                if (spread < minSpread) {
-                    minSpread = spread;
-                    minDay = Integer.parseInt(tokens.get(0));
-                }
-            }
-        }
-        return minDay;
+        return Integer.parseInt(findSmallestDifference(path, 0, 1, 2));
     }
 
     public static String findSmallestTeamDifference(Path path) {
+        return findSmallestDifference(path, 1, 6, 8);
+    }
+
+    private static String findSmallestDifference(Path path, int resultTokenIndex, int tokenIndex1, int tokenIndex2) {
         List<String> lines = readFile(path);
         int minDifference = Integer.MAX_VALUE;
-        String teamName = "";
+        String result = "";
         for (String line : lines) {
             List<String> tokens = getTokens(line);
-            if (areTokensNumeric(tokens, 6, 8)) {
-                int difference = Math.abs(Integer.parseInt(tokens.get(8)) - Integer.parseInt(tokens.get(6)));
+            if (areTokensNumeric(tokens, tokenIndex1, tokenIndex2)) {
+                int difference = Math.abs(Integer.parseInt(tokens.get(tokenIndex1)) - Integer.parseInt(tokens.get(tokenIndex2)));
                 if (difference < minDifference) {
                     minDifference = difference;
-                    teamName = tokens.get(1);
+                    result = tokens.get(resultTokenIndex);
                 }
             }
         }
-        return teamName;
+        return result;
     }
 
     private static List<String> readFile(Path path) {
