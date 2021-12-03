@@ -8,19 +8,15 @@ import java.util.List;
 
 public class FileReader {
 
-    private FileReader() {
-        throw new IllegalStateException("Utility class");
-    }
-
-    public static int findSmallestTemperatureSpread(Path path) {
+    public int findSmallestTemperatureSpread(Path path) {
         return Integer.parseInt(findSmallestDifference(path, 0, 1, 2));
     }
 
-    public static String findSmallestTeamDifference(Path path) {
+    public String findSmallestTeamDifference(Path path) {
         return findSmallestDifference(path, 1, 6, 8);
     }
 
-    private static String findSmallestDifference(Path path, int resultTokenIndex, int tokenIndex1, int tokenIndex2) {
+    private String findSmallestDifference(Path path, int resultTokenIndex, int tokenIndex1, int tokenIndex2) {
         List<String> lines = readFile(path);
         int minDifference = Integer.MAX_VALUE;
         String result = "";
@@ -37,7 +33,7 @@ public class FileReader {
         return result;
     }
 
-    private static List<String> readFile(Path path) {
+    private List<String> readFile(Path path) {
         try {
             return Files.readAllLines(path);
         } catch (IOException e) {
@@ -45,7 +41,7 @@ public class FileReader {
         }
     }
 
-    private static List<String> getTokens(String source) {
+    private List<String> getTokens(String source) {
         List<String> tokens = new ArrayList<>();
         StringBuilder currentToken = null;
         for (int i = 0; i <= source.length(); i++) {
@@ -60,14 +56,14 @@ public class FileReader {
         return tokens;
     }
 
-    private static boolean isTokenCharacter(String source, int index) {
+    private boolean isTokenCharacter(String source, int index) {
         if (index >= source.length()) return false;
         if (Character.isWhitespace(source.charAt(index))) return false;
         if (source.charAt(index) == '*') return false;
         return true;
     }
 
-    private static boolean areTokensNumeric(List<String> tokens, int... indices) {
+    private boolean areTokensNumeric(List<String> tokens, int... indices) {
         try {
             for (int index : indices) {
                 if (index >= tokens.size()) return false;
